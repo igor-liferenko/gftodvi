@@ -1,0 +1,29 @@
+diff --git a/gftodvi/web2w/pascal.y b/gftodvi/web2w/pascal.y
+index b3e6823..90d8634 100644
+--- a/gftodvi/web2w/pascal.y
++++ b/gftodvi/web2w/pascal.y
+@@ -223,7 +223,7 @@ program: programheading  globals
+          }
+        ;
+ 
+-programheading: PPROGRAM PID PSEMICOLON  {IGN($2); IGN($3); }
++programheading: PPROGRAM PID POPEN PID PCLOSE PSEMICOLON  {IGN($2); IGN($3); IGN($4); IGN($5); IGN($6); }
+               ;
+ 
+ globals: labels constants types variables procedures ;
+@@ -576,6 +576,7 @@ arg: expression {$$=$1; }
+ 
+ 
+ write_arg: expression PCOLON expression {$$=$2; }
++           | expression PCOLON expression PCOLON expression {$$=$2; }
+             ;
+ 
+ statements: statement {$$=$1; }
+@@ -674,6 +675,7 @@ case_label: PINTEGER { winsert_after($1->previous,CCASE,"case "); }
+           | CCASE NMACRO
+           | CCASE PINTEGER
+           | CCASE NMACRO PPLUS NMACRO 
++          | CCASE NMACRO PPLUS PINTEGER
+           | NMACRO PMINUS NMACRO PPLUS NMACRO  
+ 	  {winsert_after($1->previous,CCASE,"case ");  /* etex */ }
+           ;

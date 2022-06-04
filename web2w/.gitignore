@@ -1,0 +1,11 @@
+gftodvi-web2w.web
+pascal-gftodvi.y
+pascal-gftodvi.output
+pascal-gftodvi.tab.c
+pascal-gftodvi.tab.h
+web-gftodvi.l
+web.lex.c
+web2w
+web2w.c
+web2w.h
+CONTENTS.tex

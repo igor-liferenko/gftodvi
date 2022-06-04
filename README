@@ -1,0 +1,22 @@
+Based on https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
+
+Add this `gftodvi' script to PATH:
+
+    #!/bin/sh
+    /path/to/gftodvi/gftodvi /dev/stdout $1
+    ret=$?
+    echo
+    if [ $ret = 0 ]; then
+      dvipdf ${1%.*}.dvi
+      ret=$?
+    fi
+    exit $ret
+
+-----------------------------------
+
+Other WEB programs converted to CWEB:
+
+    https://github.com/igor-liferenko/tex
+    https://github.com/igor-liferenko/mf
+    https://github.com/igor-liferenko/dvitype
+    https://github.com/igor-liferenko/gftopk

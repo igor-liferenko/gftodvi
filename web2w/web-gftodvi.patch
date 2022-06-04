@@ -1,0 +1,22 @@
+diff --git a/gftodvi/web2w/web.l b/gftodvi/web2w/web.l
+index 58f9309..11e0bfd 100644
+--- a/gftodvi/web2w/web.l
++++ b/gftodvi/web2w/web.l
+@@ -19,7 +19,7 @@
+ */
+ %{
+ #include "web2w.h"
+-#include "pascal.tab.h"
++#include "pascal-gftodvi.tab.h"
+ %}
+ 
+ %option prefix="ww"
+@@ -221,7 +221,7 @@ t@&y@&p@&e	TOK("type",PTYPE);
+ 
+ "endcases"     TOK("endcases",PEND);
+ "othercases"   TOK("othercases",POTHERS);
+-"mtype"        TOK("type",PTYPE);
++"type"        TOK("type",PTYPE);
+ "final_end"    TOK("final_end",PEXIT);
+ 
+ "return"       TOK_RETURN;
