@@ -6,10 +6,6 @@ Add this `gftodvi' script to PATH:
     /path/to/gftodvi/gftodvi /dev/stdout $1
     ret=$?
     echo
-    if [ $ret = 0 ]; then
-      dvipdf ${1%.*}.dvi
-      ret=$?
-    fi
     exit $ret
 
 -----------------------------------
