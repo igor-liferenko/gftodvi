@@ -8,4 +8,3 @@ all:
 	sed -i '/^char\\_info&/{s//&$$/;s/\\cr/$$&/}' gftodvi.tex
 	sed -i '/^param&/{s//&$$/;s/\\cr/$$&/}' gftodvi.tex
 	sed -i 's/{buffer}\[\(.*\)\]/{buffer}\\char`\\[\1\\char`\\]\\/' gftodvi.scn
-	pdftex gftodvi >/dev/null

@@ -9,4 +9,4 @@ all:
 	./web2w -o cgftodvi.w gftodvi-web2w.web
 	patch -s cgftodvi.w cgftodvi.patch
 	@sed -i 's/@<Types\.\.\.@>=/@<Types ...@>=/' cgftodvi.w
-	weave gftodvi >/dev/null && sed -i 1s/webmac/pwebmac/ gftodvi.tex && pdftex gftodvi >/dev/null
+	weave gftodvi >/dev/null && sed -i 1s/webmac/pwebmac/ gftodvi.tex
