@@ -3,7 +3,7 @@ Based on https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
 Add this `gftodvi' script to PATH:
 
     #!/bin/sh
-    /path/to/gftodvi/gftodvi /dev/stdout $1
+    /path/to/gftodvi/gftodvi /dev/stdout "$@"
     ret=$?
     echo
     exit $ret

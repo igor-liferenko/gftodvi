@@ -1,7 +1,7 @@
 all:
 	make -C web2w
 	cp web2w/cgftodvi.w gftodvi.w
-	tie -c gftodvi.ch gftodvi.w filename.ch path.ch >/dev/null
+	tie -c gftodvi.ch gftodvi.w arg.ch path.ch >/dev/null
 	ctangle gftodvi gftodvi
 	gcc gftodvi.c -o gftodvi -lm
 	@cweave -f -e gftodvi
