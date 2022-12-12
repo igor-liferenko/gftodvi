@@ -1,3 +1,12 @@
+TODO: handle cases when gf-file not found and special font substitutions invalid
+
+@x
+@h
+@y
+#include <string.h>
+@h
+@z
+
 @x
 @p void input_ln(void) /*inputs a line from the terminal*/ 
 {@+update_terminal;if(!term_in.f)term_in.f=stdin,get(term_in);
