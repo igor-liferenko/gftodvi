@@ -1,5 +1,3 @@
-TODO: handle cases when gf-file not found and special font substitutions invalid
-
 @x
 @h
 @y
