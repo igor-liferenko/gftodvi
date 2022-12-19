@@ -107,9 +107,12 @@ the |output| file, so that all such output can be easily deflected.
 #include <stdlib.h>
 #include <math.h>
 
-#define abs(X) ((X)>-(X)?(X):-(X))
 #define odd(X) @[X&1@]
 #define chr(X) @[(unsigned char)X@]
+#define abs(X) ((X)>-(X)?(X):-(X))
+
+@h
+
 #define get(file) @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
 #define reset(file,name) @[file.f=fopen(name+1,"r"),file.f!=NULL?get(file):0@]
 #define rewrite(file,name) @[file.f=fopen(name+1,"w")@]
@@ -118,8 +121,6 @@ the |output| file, so that all such output can be easily deflected.
 #define read(file,x) @[x=file.d,get(file)@]
 #define write(file,...) @[fprintf(file.f,__VA_ARGS__)@]
 #define read_ln(file) @[do { while (!eoln(file)) get(file); get(file); } while (0)@]
-
-@h
 
 @<Labels in the outer block@>@;
 @<Constants in the outer block@>@;
