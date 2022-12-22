@@ -3,6 +3,7 @@ Based on https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
 Add this `gftodvi' script to PATH:
 
     #!/bin/sh
+    export geometry=39158276x55380990+4186205+6377204 # same as in paper+origin.tex
     /path/to/gftodvi/gftodvi /dev/stdout "$@"
     ret=$?
     echo
