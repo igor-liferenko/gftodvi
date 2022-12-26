@@ -33,9 +33,23 @@ loop@+{@+input_ln(); if (ac) interaction = true;
 @z
 
 @x
+    print_nl("Oops... I can't find file ");print(name_of_file);
+@y
+    print_nl("Oops... I can't find file ");print(name_of_file);
+    exit(2);    
+@z
+
+@x
 loop@+{@+not_found: print_nl("Special font substitution: ");
 @y
 loop@+{@+not_found:
+@z
+
+@x
+  print("Please say, e.g., \"grayfont foo\" or \"slantfontarea baz\".");
+@y
+  print("Please say, e.g., \"grayfont foo\" or \"slantfontarea baz\".");
+  exit(2);
 @z
 
 @x
