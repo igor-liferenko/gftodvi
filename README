@@ -9,6 +9,8 @@ Add this `gftodvi' script to PATH:
     echo
     exit $ret
 
+Adjust path.ch
+
 -----------------------------------
 
 Other WEB programs converted to CWEB:
