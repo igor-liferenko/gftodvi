@@ -107,7 +107,7 @@
      pack_file_name(cur_name, cur_area, cur_ext);open_gf_file();
      if (!eof(gf_file)) goto found;
 -    print_nl("Oops... I can't find file ");print(name_of_file);
-+    print_nl("Oops... I can't find file ");print(name_of_file+1);
++    print_nl("Oops... I can't find file ");print("%s",name_of_file+1);
  @.Oops...@>
  @.I can't find...@>
      } 

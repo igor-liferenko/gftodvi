@@ -33,9 +33,9 @@ loop@+{@+input_ln(); if (ac) interaction = true;
 @z
 
 @x
-    print_nl("Oops... I can't find file ");print(name_of_file+1);
+    print_nl("Oops... I can't find file ");print("%s",name_of_file+1);
 @y
-    print_nl("Oops... I can't find file ");print(name_of_file+1);
+    print_nl("Oops... I can't find file ");print("%s",name_of_file+1);
     exit(2);    
 @z
 
