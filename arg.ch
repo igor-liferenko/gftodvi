@@ -22,7 +22,7 @@ void input_ln(void)
 @x
 loop@+{@+print_nl("GF file name: ");input_ln();
 @y
-loop@+{@+input_ln(); if (ac) interaction = true;
+loop@+{@+input_ln(); if (ac) interaction=true;
 @z
 
 @x
@@ -30,6 +30,12 @@ loop@+{@+input_ln(); if (ac) interaction = true;
 @y
     print_nl("Oops... I can't find file ");print("%s",name_of_file+1);
     exit(2);    
+@z
+
+@x
+  {@+interaction=true;decr(line_length);
+@y
+  {@+decr(line_length);
 @z
 
 @x
