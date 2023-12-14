@@ -4,7 +4,3 @@ all:
 	tie -c gftodvi.ch gftodvi.w paper+origin.ch path.ch arg.ch >/dev/null
 	ctangle gftodvi gftodvi
 	gcc gftodvi.c -o gftodvi -lm
-	@cweave -f -e gftodvi
-	@sed -i '/^char\\_info&/{s//&$$/;s/\\cr/$$&/}' gftodvi.tex
-	@sed -i '/^param&/{s//&$$/;s/\\cr/$$&/}' gftodvi.tex
-	@sed -i 's/{buffer}\[\(.*\)\]/{buffer}\\char`\\[\1\\char`\\]\\/' gftodvi.scn
