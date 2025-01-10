@@ -1,3 +1,6 @@
+Write value of environment variable to comment of output DVI file
+(the value has the same format as in paper+origin.ch from tex repo).
+
 @x
 @h
 @y
