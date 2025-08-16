@@ -1,3 +1,5 @@
+GF file name and special font substitutions are read from command line.
+
 @x
 @p void input_ln(void) /*inputs a line from the terminal*/ 
 {@+update_terminal;if(!term_in.f)term_in.f=stdin,get(term_in);
@@ -22,7 +24,7 @@ void input_ln(void)
 @x
 loop@+{@+print_nl("GF file name: ");input_ln();
 @y
-loop@+{@+input_ln(); if (ac) interaction=true;
+loop@+{@+input_ln();
 @z
 
 @x
@@ -33,9 +35,9 @@ loop@+{@+input_ln(); if (ac) interaction=true;
 @z
 
 @x
-  {@+interaction=true;decr(line_length);
+if (interaction) @<Get online special input@>;
 @y
-  {@+decr(line_length);
+if (ac) @<Get online special input@>;
 @z
 
 @x
