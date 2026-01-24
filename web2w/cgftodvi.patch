@@ -1,5 +1,3 @@
---- cgftodvi.w
-+++ cgftodvi.w
 @@ -96,11 +96,33 @@
  The term |print| is used instead of |write| when this program writes on
  the |output| file, so that all such output can be easily deflected.
