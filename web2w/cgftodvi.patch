@@ -16,8 +16,8 @@
 +#include <stdlib.h>
 +#include <math.h>
 +
-+#define odd(X) @[X&1@]
-+#define chr(X) @[(unsigned char)X@]
++#define odd(X) ((X)&1)
++#define chr(X) (X)
 +#define abs(X) ((X)>-(X)?(X):-(X))
 +
 +@h
@@ -81,7 +81,7 @@
  
  @ It turns out to be convenient to read four bytes at a time, when we are
  inputting from \.{TFM} files. The input goes into global variables
-@@ -2157,7 +2179,7 @@
+@@ -2156,7 +2178,7 @@
  @d longest_keyword	13
  
  @p void first_string(int @!c)
@@ -90,7 +90,7 @@
  @.?@>
  while (l > 0) 
    {@+append_char(buffer[l]);decr(l);
-@@ -2478,7 +2500,7 @@
+@@ -2477,7 +2499,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(str_pool[j]);
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(str_pool[j]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -99,7 +99,7 @@
  } 
  
  @ Now let's consider the routines by which \.{GFtoDVI} deals with file names
-@@ -2509,7 +2531,7 @@
+@@ -2508,7 +2530,7 @@
      if (cur_ext==null_string) cur_ext=gf_ext;
      pack_file_name(cur_name, cur_area, cur_ext);open_gf_file();
      if (!eof(gf_file)) goto found;
@@ -108,7 +108,7 @@
  @.Oops...@>
  @.I can't find...@>
      } 
-@@ -2684,7 +2706,7 @@
+@@ -2683,7 +2705,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -117,7 +117,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -3211,7 +3233,7 @@
+@@ -3210,7 +3232,7 @@
  
  @p void slant_complaint(double @!r)
  {@+if (abs(r-slant_reported) > 0.001) 
@@ -126,7 +126,7 @@
  @.Sorry, I can't...@>
    slant_reported=r;
    } 
-@@ -3414,9 +3436,9 @@
+@@ -3413,9 +3435,9 @@
  
  @d font_change(X)	if (fonts_not_loaded) 
      {@+X;} 
@@ -138,7 +138,7 @@
  
  @<Process a no-op command@>=
  {@+k=interpret_xxx();
-@@ -3526,7 +3548,7 @@
+@@ -3525,7 +3547,7 @@
  
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
@@ -147,7 +147,7 @@
  @.Bad label type...@>
  else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
    lab_typ[p]=label_type;info[p]=cur_string;@/
-@@ -3546,13 +3568,13 @@
+@@ -3545,13 +3567,13 @@
  @<Finish reading the parameters of the |boc|@>;
  @<Get ready to convert \MF\ coordinates to \.{DVI} coordinates@>;
  @<Output the |bop| and the title line@>;
@@ -163,40 +163,7 @@
  } 
  
  @ @<Finish reading the parameters of the |boc|@>=
-@@ -4219,15 +4241,15 @@
- 
- @ @d do_skip	z=0;paint_black=false
- @d end_with(X)	{@+X;cur_gf=get_byte();goto done1;@+} 
--@d five_cases(X)	X: X: case 1: X: case 2: X: case 3: X: case 4
--@d eight_cases(X)	X: X: case 1: X: case 2: X: case 3: X: case 4: X: case 5: X: case 6: X: case 7
--@d thirty_two_cases(X)	eight_cases(X): eight_cases(X: case 8): 
--  eight_cases(X: case 16): eight_cases(X: case 24)
--@d sixty_four_cases(X)	thirty_two_cases(X): thirty_two_cases(X: case 32)
-+@d five_cases(X)	case X: case X+1: case X+2: case X+3: case X+4
-+@d eight_cases(X)	case X: case X+1: case X+2: case X+3: case X+4: case X+5: case X+6: case X+7
-+@d thirty_two_cases(X)	eight_cases(X): eight_cases(X+8):
-+  eight_cases(X+16): eight_cases(X+24)
-+@d sixty_four_cases(X)	thirty_two_cases(X): thirty_two_cases(X+32)
- 
- @<Read and process...@>=
- loop@+{@+resume: switch (cur_gf) {
--  sixty_four_cases(case 0): k=cur_gf;@+break;
-+  sixty_four_cases(0): k=cur_gf;@+break;
-   case paint1: k=get_byte();@+break;
-   case paint2: k=get_two_bytes();@+break;
-   case paint3: k=get_three_bytes();@+break;
-@@ -4236,8 +4258,8 @@
-   case skip1: end_with(blank_rows=get_byte();do_skip)@;
-   case skip2: end_with(blank_rows=get_two_bytes();do_skip)@;
-   case skip3: end_with(blank_rows=get_three_bytes();do_skip)@;
--  sixty_four_cases(case new_row_0): sixty_four_cases(case new_row_0+64): 
--   thirty_two_cases(case new_row_0+128): five_cases(case new_row_0+160): 
-+  sixty_four_cases(new_row_0): sixty_four_cases(new_row_0+64):
-+   thirty_two_cases(new_row_0+128): five_cases(new_row_0+160):
-     end_with(z=cur_gf-new_row_0;paint_black=true)@;
-   case xxx1: case xxx2: case xxx3: case xxx4: case yyy: case no_op: {@+skip_nop();goto resume;
-     } 
-@@ -4301,7 +4323,9 @@
+@@ -4300,7 +4322,9 @@
  Now we are ready to put it all together. This is where \.{GFtoDVI} starts,
  and where it ends.
  
