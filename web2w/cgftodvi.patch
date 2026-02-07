@@ -72,7 +72,7 @@
  if (eoln(term_in)) read_ln(term_in);
  line_length=0;
  while ((line_length < terminal_line_length)&&!eoln(term_in)) 
-@@ -1649,7 +1671,7 @@
+@@ -1648,7 +1670,7 @@
  
  @<Glob...@>=
  int @!cur_loc; /*current byte number in |gf_file|*/ 
@@ -81,7 +81,7 @@
  
  @ It turns out to be convenient to read four bytes at a time, when we are
  inputting from \.{TFM} files. The input goes into global variables
-@@ -2156,7 +2178,7 @@
+@@ -2155,7 +2177,7 @@
  @d longest_keyword	13
  
  @p void first_string(int @!c)
@@ -90,7 +90,7 @@
  @.?@>
  while (l > 0) 
    {@+append_char(buffer[l]);decr(l);
-@@ -2477,7 +2499,7 @@
+@@ -2476,7 +2498,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(str_pool[j]);
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(str_pool[j]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -99,7 +99,7 @@
  } 
  
  @ Now let's consider the routines by which \.{GFtoDVI} deals with file names
-@@ -2508,7 +2530,7 @@
+@@ -2507,7 +2529,7 @@
      if (cur_ext==null_string) cur_ext=gf_ext;
      pack_file_name(cur_name, cur_area, cur_ext);open_gf_file();
      if (!eof(gf_file)) goto found;
@@ -108,7 +108,7 @@
  @.Oops...@>
  @.I can't find...@>
      } 
-@@ -2683,7 +2705,7 @@
+@@ -2682,7 +2704,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -117,7 +117,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -3210,7 +3232,7 @@
+@@ -3209,7 +3231,7 @@
  
  @p void slant_complaint(double @!r)
  {@+if (abs(r-slant_reported) > 0.001) 
@@ -126,7 +126,7 @@
  @.Sorry, I can't...@>
    slant_reported=r;
    } 
-@@ -3413,9 +3435,9 @@
+@@ -3412,9 +3434,9 @@
  
  @d font_change(X)	if (fonts_not_loaded) 
      {@+X;} 
@@ -138,7 +138,7 @@
  
  @<Process a no-op command@>=
  {@+k=interpret_xxx();
-@@ -3525,7 +3547,7 @@
+@@ -3524,7 +3546,7 @@
  
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
@@ -147,7 +147,7 @@
  @.Bad label type...@>
  else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
    lab_typ[p]=label_type;info[p]=cur_string;@/
-@@ -3545,13 +3567,13 @@
+@@ -3544,13 +3566,13 @@
  @<Finish reading the parameters of the |boc|@>;
  @<Get ready to convert \MF\ coordinates to \.{DVI} coordinates@>;
  @<Output the |bop| and the title line@>;
@@ -163,7 +163,7 @@
  } 
  
  @ @<Finish reading the parameters of the |boc|@>=
-@@ -4300,7 +4322,9 @@
+@@ -4299,7 +4321,9 @@
  Now we are ready to put it all together. This is where \.{GFtoDVI} starts,
  and where it ends.
  
