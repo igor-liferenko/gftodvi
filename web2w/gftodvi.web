@@ -1589,8 +1589,7 @@ schemes.
 
 @* Input from binary files.
 We have seen that \.{GF} and \.{DVI} and \.{TFM} files are sequences of
-8-bit bytes.  The bytes appear physically in what is called a `|packed
-file of 0..255|' in \PASCAL\ lingo.
+8-bit bytes.  The bytes appear physically in what is called a `|packed file of 0..255|' in \PASCAL\ lingo.
 
 Packing is system dependent, and many \PASCAL\ systems fail to implement
 such files in a sensible way (at least, from the viewpoint of producing

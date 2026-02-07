@@ -9,7 +9,7 @@ all:
 	@sed -i '/@d five_cases/,+4s/+/,/g' gftodvi-web2w.web
 	@sed -i 's/@<Types /@<Types_/' gftodvi-web2w.web
 	@sed -i 's/case boolean of/case two_choices of/;s/true:/1:/;s/false:/2:/' gftodvi-web2w.web
-	@sed -i '/|packed$$/{N;s/|packed\nfile of 0..255|/\n/}' gftodvi-web2w.web
+	@sed -i 's/|packed file of 0..255|//' gftodvi-web2w.web
 	./web2w -o cgftodvi.w gftodvi-web2w.web
 	@sed -i '/@d five_cases/,+4s/: case/+/g' cgftodvi.w
 	@sed -i 's/@<Types_/@<Types /' cgftodvi.w
