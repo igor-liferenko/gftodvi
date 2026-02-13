@@ -1,9 +1,12 @@
 Add this `gftodvi' script to PATH:
 
     #!/bin/sh
-    /path/to/gftodvi/gftodvi /dev/stdout "$@"
+    /path/to/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
     ret=$?
-    echo
+    touch /tmp/gftodvi.$$ # ensure file exists
+    sed -i '$a\' /tmp/gftodvi.$$ # ensure trailing newline
+    cat /tmp/gftodvi.$$
+    rm /tmp/gftodvi.$$
     exit $ret
 
 Adjust path.ch
