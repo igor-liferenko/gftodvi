@@ -3,8 +3,8 @@ Add this `gftodvi' script to PATH:
     #!/bin/sh
     /path/to/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
     ret=$?
-    touch /tmp/gftodvi.$$ # ensure file exists
-    sed -i '$a\' /tmp/gftodvi.$$ # ensure trailing newline
+    touch /tmp/gftodvi.$$
+    sed -i '$a\' /tmp/gftodvi.$$
     cat /tmp/gftodvi.$$
     rm /tmp/gftodvi.$$
     exit $ret
