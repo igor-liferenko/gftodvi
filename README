@@ -3,10 +3,8 @@ Add this `gftodvi' script to PATH:
     #!/bin/sh
     /path/to/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
     ret=$?
-    touch /tmp/gftodvi.$$
-    sed -i '$a\' /tmp/gftodvi.$$
-    cat /tmp/gftodvi.$$
-    rm /tmp/gftodvi.$$
+    sed '$a\' /tmp/gftodvi.$$ 2>/dev/null
+    rm -f /tmp/gftodvi.$$
     exit $ret
 
 Adjust path.ch
