@@ -167,8 +167,8 @@
  and where it ends.
  
 -@p int main(void) {initialize(); /*get all variables initialized*/ 
-+@p int main(int argc, char **argv) { if (argc != 2) return 2;
-+if ((output=fopen(argv[1],"w"))==NULL) return 2;
++@p int main(int argc, char **argv) { if (argc != 2) return 1;
++if ((output=fopen(argv[1],"w"))==NULL) return 1;
 +initialize(); /*get all variables initialized*/
  @<Initialize the strings@>;
  start_gf(); /*open the input and output files*/ 
