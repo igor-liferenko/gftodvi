@@ -67,7 +67,7 @@ loop@+{@+not_found:
 @z
   
 @x
-@p int main(int argc, char **argv) { if (argc != 2) return 2;
+@p int main(int argc, char **argv) { if (argc != 2) return 1;
 @y
-@p int main(int argc, char **argv) { if (argc < 3) return 2; av = argv + 2; ac = argc - 2;
+@p int main(int argc, char **argv) { if (argc < 3) return 1; av = argv + 2; ac = argc - 2;
 @z
