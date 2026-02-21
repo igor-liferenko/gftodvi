@@ -1,4 +1,4 @@
-If comment was added by comment.ch from mf repo, do not use it in hardcopy proofs.
+Do not put to hardcopy proofs extra comment that could be added by MF.
 
 @x
 for (m=1; m<=k; m++) dvi_out(str_pool[s+m-1]);
