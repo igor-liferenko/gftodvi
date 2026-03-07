@@ -5,7 +5,6 @@ web.lex.c
 web2w
 web2w.c
 web2w.h
-web2w.ch
 pascal-gftodvi.y
 web-gftodvi.l
 gftodvi-web2w.web
