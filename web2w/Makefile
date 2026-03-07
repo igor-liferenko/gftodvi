@@ -1,5 +1,6 @@
 all:
-	ctangle web2w web2w-gftodvi
+	tie -c web2w.ch web2w.w simplify.ch web2w-gftodvi.ch >/dev/null
+	ctangle web2w web2w
 	patch -so web-gftodvi.l web.l web-gftodvi.patch
 	flex -o web.lex.c web-gftodvi.l
 	patch -so pascal-gftodvi.y pascal.y pascal-gftodvi.patch
