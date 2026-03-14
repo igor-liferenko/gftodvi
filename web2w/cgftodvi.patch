@@ -37,8 +37,8 @@
  
 -@d abort(...)	@+{@+print( ' ' ,__VA_ARGS__);jump_out();@+} 
 -@d bad_gf(X)	abort("Bad GF file: ", X,"! (at byte ", cur_loc-1: 1, ')' )
-+@d abort(...)	@+{@+print(" "__VA_ARGS__);jump_out();@+}
-+@d bad_gf(X)	abort("Bad GF file: "X"! (at byte %d)", cur_loc-1)
++@d abort(...)	@+{@+print( " "  __VA_ARGS__);jump_out();@+}
++@d bad_gf(X)	abort("Bad GF file: "  X "! (at byte %d)", cur_loc-1)
  @.Bad GF file@>
  
  @p void jump_out(void)
@@ -74,7 +74,7 @@
  @<Glob...@>=
  int @!cur_loc; /*current byte number in |gf_file|*/ 
 -uint8_t @!name_of_file0[file_name_size], *const @!name_of_file = @!name_of_file0-1; /*external file name*/ 
-+uint8_t @!name_of_file0[file_name_size+1], *const @!name_of_file = @!name_of_file0-1; /*external file name*/
++unsigned char name_of_file0[file_name_size+1], *const name_of_file = name_of_file0-1;
  
  @ It turns out to be convenient to read four bytes at a time, when we are
  inputting from \.{TFM} files. The input goes into global variables
@@ -83,7 +83,7 @@
  
  @p void first_string(int @!c)
 -{@+if (str_ptr!=c) abort( '?' ); /*internal consistency check*/ 
-+{@+if (str_ptr!=c) abort("?"); /*internal consistency check*/
++{@+if (str_ptr!=c) abort( "?" ); /*internal consistency check*/
  @.?@>
  while (l > 0) 
    {@+append_char(buffer[l]);decr(l);
@@ -140,7 +140,7 @@
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
 -  print_nl("Bad label type precedes byte ", cur_loc: 1, '!' )@;
-+  print_nl("Bad label type precedes byte %d!", cur_loc)@;
++  print_nl("Bad label type precedes byte %d!", cur_loc)
  @.Bad label type...@>
  else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
    lab_typ[p]=label_type;info[p]=cur_string;@/
@@ -156,7 +156,7 @@
  dvi_out(eop); /*finish the page*/ 
  @<Adjust the maximum page width@>;
 -print( ']' );update_terminal;
-+print("]");update_terminal;
++print( "]" );update_terminal;
  } 
  
  @ @<Finish reading the parameters of the |boc|@>=
