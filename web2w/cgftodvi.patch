@@ -1,13 +1,13 @@
-@@ -96,11 +96,28 @@
+@@ -96,11 +96,29 @@
  The term |print| is used instead of |write| when this program writes on
  the |output| file, so that all such output can be easily deflected.
  
--@d print(...)	write(__VA_ARGS__)
--@d print_ln(X)	write_ln(X)
--@d print_nl(...)	@+{@+write_ln;write(__VA_ARGS__);@+} 
-+@d print(...) fprintf(output,__VA_ARGS__)
-+@d print_ln(X,...) fprintf(output,X"\n",##__VA_ARGS__)
-+@d print_nl(...) { fprintf(output,"\n"); fprintf(output,__VA_ARGS__); }
+-@d print(...) write(__VA_ARGS__)
+-@d print_ln(X) write_ln(X)
+-@d print_nl(...) @+{@+write_ln;write(__VA_ARGS__);@+} 
++@d print(...) write(output,__VA_ARGS__)
++@d print_ln(...) write_ln(output,__VA_ARGS__)
++@d print_nl(...) { write(output,"\n"); write(output,__VA_ARGS__); }
  
  @p@!
 +#include <stdint.h>
@@ -26,37 +26,38 @@
 +#define eof(file) (file.f==NULL||feof(file.f))
 +#define read(file,x) x=file.d,get(file)
 +#define write(file,...) fprintf(file.f,__VA_ARGS__)
++#define write_ln(file,X,...) write(file,X"\n",##__VA_ARGS__)
 +
  @<Labels in the outer block@>@;
  @<Constants in the outer block@>@;
  @<Types in the outer block@>@;
-@@ -163,12 +180,12 @@
+@@ -163,12 +181,12 @@
  contains the only non-local |goto| statement in \.{GFtoDVI}.
  @^system dependencies@>
  
--@d abort(...)	@+{@+print( ' ' ,__VA_ARGS__);jump_out();@+} 
--@d bad_gf(X)	abort("Bad GF file: ", X,"! (at byte ", cur_loc-1: 1, ')' )
-+@d abort(...)	@+{@+print( " "  __VA_ARGS__);jump_out();@+}
-+@d bad_gf(X)	abort("Bad GF file: "  X "! (at byte %d)", cur_loc-1)
+-@d abort(...) @+{@+print(" ",__VA_ARGS__);jump_out();@+} 
+-@d bad_gf(X) abort("Bad GF file: ", X,"! (at byte ", cur_loc-1: 1, ')' )
++@d abort(...)   {  print(" " __VA_ARGS__);jump_out();  }
++@d bad_gf(X) abort("Bad GF file: "  X "! (at byte %d)", cur_loc-1)
  @.Bad GF file@>
  
  @p void jump_out(void)
 -{@+exit(0);
-+{@+exit(1);
++{  exit(1);
  } 
  
  @ As in \TeX\ and \MF, this program deals with numeric quantities that
-@@ -362,18 +379,19 @@
+@@ -362,18 +380,19 @@
  no idea what the program is waiting for.) We shall call a system-dependent
  subroutine |update_terminal| in order to avoid this problem.
  
--@d update_terminal	break(output) /*empty the terminal output buffer*/ 
-+@d update_terminal	fflush(output) /*empty the terminal output buffer*/
+-@d update_terminal break(output) /*empty the terminal output buffer*/ 
++@d update_terminal fflush(output.f) /*empty the terminal output buffer*/
  
  @<Glob...@>=
  uint8_t @!buffer[terminal_line_length+1];
  text_file @!term_in; /*the terminal, considered as an input file*/ 
-+FILE *output;
++text_file output;
  
  @ A global variable |line_length| records the first buffer position after
  the line just read.
@@ -68,7 +69,7 @@
  if (eoln(term_in)) read_ln(term_in);
  line_length=0;
  while ((line_length < terminal_line_length)&&!eoln(term_in)) 
-@@ -1648,7 +1666,7 @@
+@@ -1648,7 +1667,7 @@
  
  @<Glob...@>=
  int @!cur_loc; /*current byte number in |gf_file|*/ 
@@ -77,16 +78,7 @@
  
  @ It turns out to be convenient to read four bytes at a time, when we are
  inputting from \.{TFM} files. The input goes into global variables
-@@ -2155,7 +2173,7 @@
- @d longest_keyword	13
- 
- @p void first_string(int @!c)
--{@+if (str_ptr!=c) abort( '?' ); /*internal consistency check*/ 
-+{@+if (str_ptr!=c) abort( "?" ); /*internal consistency check*/
- @.?@>
- while (l > 0) 
-   {@+append_char(buffer[l]);decr(l);
-@@ -2476,7 +2494,7 @@
+@@ -2476,7 +2495,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(str_pool[j]);
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(str_pool[j]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -95,7 +87,7 @@
  } 
  
  @ Now let's consider the routines by which \.{GFtoDVI} deals with file names
-@@ -2507,7 +2525,7 @@
+@@ -2507,7 +2526,7 @@
      if (cur_ext==null_string) cur_ext=gf_ext;
      pack_file_name(cur_name, cur_area, cur_ext);open_gf_file();
      if (!eof(gf_file)) goto found;
@@ -104,7 +96,7 @@
  @.Oops...@>
  @.I can't find...@>
      } 
-@@ -2682,7 +2700,7 @@
+@@ -2682,7 +2701,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -113,7 +105,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -3209,7 +3227,7 @@
+@@ -3209,7 +3228,7 @@
  
  @p void slant_complaint(double @!r)
  {@+if (abs(r-slant_reported) > 0.001) 
@@ -122,9 +114,9 @@
  @.Sorry, I can't...@>
    slant_reported=r;
    } 
-@@ -3412,9 +3430,9 @@
+@@ -3412,9 +3431,9 @@
  
- @d font_change(X)	if (fonts_not_loaded) 
+ @d font_change(X) if (fonts_not_loaded) 
      {@+X;} 
 -  else print_nl("(Tardy font change will be ignored (byte ",
 +  else print_nl("(Tardy font change will be ignored (byte %d)!)",
@@ -134,7 +126,7 @@
  
  @<Process a no-op command@>=
  {@+k=interpret_xxx();
-@@ -3524,7 +3542,7 @@
+@@ -3524,7 +3543,7 @@
  
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
@@ -143,29 +135,22 @@
  @.Bad label type...@>
  else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
    lab_typ[p]=label_type;info[p]=cur_string;@/
-@@ -3544,13 +3562,13 @@
+@@ -3544,7 +3563,7 @@
  @<Finish reading the parameters of the |boc|@>;
  @<Get ready to convert \MF\ coordinates to \.{DVI} coordinates@>;
  @<Output the |bop| and the title line@>;
--print( '[' , total_pages: 1);update_terminal; /*print a progress report*/ 
+-print("[", total_pages: 1);update_terminal; /*print a progress report*/ 
 +print("[%d", total_pages);update_terminal; /*print a progress report*/
  @<Output all rules for the current character@>;
  @<Output all labels for the current character@>;
  do_pixels();
- dvi_out(eop); /*finish the page*/ 
- @<Adjust the maximum page width@>;
--print( ']' );update_terminal;
-+print( "]" );update_terminal;
- } 
- 
- @ @<Finish reading the parameters of the |boc|@>=
-@@ -4299,7 +4317,9 @@
+@@ -4299,7 +4318,9 @@
  Now we are ready to put it all together. This is where \.{GFtoDVI} starts,
  and where it ends.
  
 -@p int main(void) {initialize(); /*get all variables initialized*/ 
 +@p int main(int argc, char **argv) { if (argc != 2) return 1;
-+if ((output=fopen(argv[1],"w"))==NULL) return 1;
++if ((output.f=fopen(argv[1],"w"))==NULL) return 1;
 +initialize(); /*get all variables initialized*/
  @<Initialize the strings@>;
  start_gf(); /*open the input and output files*/ 
