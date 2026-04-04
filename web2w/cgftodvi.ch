@@ -17,6 +17,24 @@ else{@+if (c=='/')
 @z
 
 @x
+{@+reset(gf_file, name_of_file);
+@y
+{  reset(gf_file, name_of_file); assert(gf_file.f!=NULL); assert(!ferror(gf_file.f));
+@z
+
+@x
+{@+reset(tfm_file, name_of_file);
+@y
+{  reset(tfm_file, name_of_file); assert(tfm_file.f!=NULL); assert(!ferror(tfm_file.f));
+@z
+
+@x
+{@+rewrite(dvi_file, name_of_file);
+@y
+{  rewrite(dvi_file, name_of_file); assert...
+@z
+
+@x
 uint8_t @!name_length; /*number of characters packed*/
 @y
 int       name_length; /*number of characters packed*/
