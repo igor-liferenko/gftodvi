@@ -11,6 +11,12 @@ else{@+if (c=='/')
 @z
 
 @x
+  if (k <= file_name_size) name_of_file[k]=xchr[c];
+@y
+  assert(k <= file_name_size); name_of_file[k]=xchr[c];
+@z
+
+@x
 uint8_t @!name_length; /*number of characters packed*/
 @y
 int       name_length; /*number of characters packed*/

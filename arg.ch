@@ -9,7 +9,7 @@ GF file name and special font substitutions are read from command line.
 
 @x
 @p void input_ln(void) /*inputs a line from the terminal*/ 
-{@+update_terminal;if(!term_in.f)term_in.f=stdin,get(term_in);
+{@+update_terminal;term_in.f=stdin;
 if (eoln(term_in)) read_ln(term_in);
 line_length=0;
 while ((line_length < terminal_line_length)&&!eoln(term_in)) 
@@ -67,7 +67,7 @@ loop@+{@+not_found:
 @z
   
 @x
-@p int main(int argc, char **argv) { if (argc != 2) return 1;
+@p int main(int argc, char **argv) { assert(argc==2);
 @y
-@p int main(int argc, char **argv) { if (argc < 3) return 1; av = argv + 2; ac = argc - 2;
+@p int main(int argc, char **argv) { assert(argc>=3); av = argv + 2; ac = argc - 2;
 @z
