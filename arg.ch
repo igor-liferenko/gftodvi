@@ -9,7 +9,7 @@ GF file name and special font substitutions are read from command line.
 
 @x
 @p void input_ln(void) /*inputs a line from the terminal*/ 
-{@+update_terminal;term_in.f=stdin;
+{@+update_terminal;reset(term_in,"TTY:");
 if (eoln(term_in)) read_ln(term_in);
 line_length=0;
 while ((line_length < terminal_line_length)&&!eoln(term_in)) 
