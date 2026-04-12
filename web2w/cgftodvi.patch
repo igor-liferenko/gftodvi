@@ -38,10 +38,10 @@
  contains the only non-local |goto| statement in \.{GFtoDVI}.
  @^system dependencies@>
  
--@d abort(...) @+{@+print(" ", __VA_ARGS__);jump_out();@+} 
--@d bad_gf(X) abort("Bad GF file: ", X, "! (at byte ", cur_loc-1, ")")
-+@d abort(...)   {  print(" "  __VA_ARGS__);jump_out();  }
-+@d bad_gf(X) abort("Bad GF file: "  X  "! (at byte %d)", cur_loc-1)
+-@d abort(...) @+{@+print(" ",__VA_ARGS__);jump_out();@+} 
+-@d bad_gf(X) abort("Bad GF file: ", X,"! (at byte ", cur_loc-1: 1,")")
++@d abort(...)   {  print(" " __VA_ARGS__);jump_out();  }
++@d bad_gf(X) abort("Bad GF file: "  X "! (at byte %d)", cur_loc-1)
  @.Bad GF file@>
  
  @p void jump_out(void)
@@ -121,7 +121,7 @@
  
  @p void slant_complaint(double @!r)
  {@+if (abs(r-slant_reported) > 0.001) 
--  {@+print_nl("Sorry, I can't make diagonal rules of slant ", r: 10: 5, "!");
+-  {@+print_nl("Sorry, I can't make diagonal rules of slant ", r: 10: 5,"!");
 +  {@+print_nl("Sorry, I can't make diagonal rules of slant %10.5f!", r);
  @.Sorry, I can't...@>
    slant_reported=r;
@@ -133,7 +133,7 @@
 -  else print_nl("(Tardy font change will be ignored (byte ",
 +  else print_nl("(Tardy font change will be ignored (byte %d)!)",
  @.Tardy font change...@>
--    cur_loc, ")!)")
+-    cur_loc: 1,")!)")
 +    cur_loc)
  
  @<Process a no-op command@>=
@@ -142,7 +142,7 @@
  
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
--  print_nl("Bad label type precedes byte ", cur_loc, "!")@;
+-  print_nl("Bad label type precedes byte ", cur_loc: 1,"!")@;
 +  print_nl("Bad label type precedes byte %d!", cur_loc)
  @.Bad label type...@>
  else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
@@ -151,7 +151,7 @@
  @<Finish reading the parameters of the |boc|@>;
  @<Get ready to convert \MF\ coordinates to \.{DVI} coordinates@>;
  @<Output the |bop| and the title line@>;
--print("[", total_pages);update_terminal; /*print a progress report*/ 
+-print("[", total_pages: 1);update_terminal; /*print a progress report*/ 
 +print("[%d", total_pages);update_terminal; /*print a progress report*/
  @<Output all rules for the current character@>;
  @<Output all labels for the current character@>;
