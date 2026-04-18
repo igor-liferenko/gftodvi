@@ -3,7 +3,7 @@
 @y
 @h
 #define init_str(X) l = strlen(X); assert(l <= terminal_line_length); \
-                    for (char *p = X; *p!=0; p++) buffer[l--] = *p; \
+                    for (char *p = X; *p!='\0'; p++) buffer[l--] = *p; \
                     l = strlen(X); first_string
 @z
 
