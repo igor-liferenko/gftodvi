@@ -1,13 +1,22 @@
 @x
+@h
+@y
+@h
+#define init_str(X) l = strlen(X); assert(l <= terminal_line_length); \
+                    for (char *p = X; *p!=0; p++) buffer[l--] = *p; \
+                    l = strlen(X); first_string
+@z
+
+@x
 {@+reset(gf_file, name_of_file);
 @y
-{ reset(gf_file, name_of_file); assert(gf_file.f!=NULL); assert(!ferror(gf_file.f));
+{  reset(gf_file, name_of_file); assert(gf_file.f!=NULL); assert(!ferror(gf_file.f));
 @z
 
 @x
 {@+reset(tfm_file, name_of_file);
 @y
-{ reset(tfm_file, name_of_file); assert(tfm_file.f!=NULL); assert(!ferror(tfm_file.f));
+{  reset(tfm_file, name_of_file); assert(tfm_file.f!=NULL); assert(!ferror(tfm_file.f));
 @z
 
 @x
