@@ -1,7 +1,3 @@
-diff --git a/gftodvi/web2w/web.l b/gftodvi/web2w/web.l
-index 58f9309..11e0bfd 100644
---- a/gftodvi/web2w/web.l
-+++ b/gftodvi/web2w/web.l
 @@ -19,7 +19,7 @@
  */
  %{
