@@ -142,7 +142,7 @@
  
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
--  print_nl("Bad label type precedes byte ", cur_loc: 1,"!")@;
+-  print_nl("Bad label type precedes byte ", cur_loc: 1,"!")
 +  print_nl("Bad label type precedes byte %d!", cur_loc)
  @.Bad label type...@>
  else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
