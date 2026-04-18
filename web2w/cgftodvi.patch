@@ -145,8 +145,8 @@
 -  print_nl("Bad label type precedes byte ", cur_loc: 1,"!")
 +  print_nl("Bad label type precedes byte %d!", cur_loc)
  @.Bad label type...@>
- else{@+p=get_avail();next[label_tail]=p;label_tail=p;@/
-   lab_typ[p]=label_type;info[p]=cur_string;@/
+ else{@+p=get_avail();next[label_tail]=p;label_tail=p;
+   lab_typ[p]=label_type;info[p]=cur_string;
 @@ -3544,7 +3566,7 @@
  @<Finish reading the parameters of the |boc|@>;
  @<Get ready to convert \MF\ coordinates to \.{DVI} coordinates@>;

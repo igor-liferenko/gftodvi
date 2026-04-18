@@ -7,6 +7,7 @@ all:
 	bison --warnings=none -d -v pascal-gftodvi.y
 	gcc -o web2w web2w.c web.lex.c pascal-gftodvi.tab.c
 	cp gftodvi.web gftodvi-web2w.web
+	@sed -i 's^@/^^g' gftodvi-web2w.web
 	@sed -i "s/\([(,]\)'\(.\)'/\1'\2_'/g" gftodvi-web2w.web
 	@sed -i '/@d five_cases/,+4s/+/,/g' gftodvi-web2w.web
 	@sed -i 's/@<Types /@<Types_/' gftodvi-web2w.web
