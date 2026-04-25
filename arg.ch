@@ -9,11 +9,11 @@ GF file name and special font substitutions are read from command line.
 
 @x
 @p void input_ln(void) /*inputs a line from the terminal*/ 
-{@+update_terminal;reset(term_in,"TTY:");
+{ update_terminal;reset(term_in,"TTY:");
 if (eoln(term_in)) read_ln(term_in);
 line_length=0;
 while ((line_length < terminal_line_length)&&!eoln(term_in)) 
-  {@+buffer[line_length]=xord[term_in.d];incr(line_length);get(term_in);
+  { buffer[line_length]=xord[term_in.d];incr(line_length);get(term_in);
   } 
 } 
 @y
@@ -29,9 +29,9 @@ void input_ln(void)
 @z
 
 @x
-loop@+{@+print_nl("GF file name: ");input_ln();
+loop { print_nl("GF file name: ");input_ln();
 @y
-loop@+{@+input_ln();
+loop { input_ln();
 @z
 
 @x
@@ -48,9 +48,9 @@ if (ac) @<Get online special input@>;
 @z
 
 @x
-loop@+{@+not_found: print_nl("Special font substitution: ");
+loop { not_found: print_nl("Special font substitution: ");
 @y
-loop@+{@+not_found:
+loop { not_found:
 @z
 
 @x
