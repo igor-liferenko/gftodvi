@@ -4,7 +4,7 @@
  
 -@d print(...) write(__VA_ARGS__)
 -@d print_ln(X) write_ln(X)
--@d print_nl(...) @+{@+write_ln;write(__VA_ARGS__);@+} 
+-@d print_nl(...) { write_ln;write(__VA_ARGS__); } 
 +@d print(...) write(output,__VA_ARGS__)
 +@d print_ln(...) write_ln(output,__VA_ARGS__)
 +@d print_nl(...) { write(output,"\n"); write(output,__VA_ARGS__); }
@@ -38,23 +38,23 @@
  contains the only non-local |goto| statement in \.{GFtoDVI}.
  @^system dependencies@>
  
--@d abort(...) @+{@+print(" ",__VA_ARGS__);jump_out();@+} 
+-@d abort(...) { print(" ",__VA_ARGS__);jump_out(); } 
 -@d bad_gf(X) abort("Bad GF file: ", X,"! (at byte ", cur_loc-1: 1,")")
-+@d abort(...)   {  print(" " __VA_ARGS__);jump_out();  }
++@d abort(...) { print(" " __VA_ARGS__);jump_out(); }
 +@d bad_gf(X) abort("Bad GF file: "  X "! (at byte %d)", cur_loc-1)
  @.Bad GF file@>
  
  @p void jump_out(void)
--{@+exit(0);
-+{  exit(1);
+-{ exit(0);
++{ exit(1);
  } 
  
  @ As in \TeX\ and \MF, this program deals with numeric quantities that
 @@ -224,7 +245,7 @@
  @<Globals...@>=
- ASCII_code @!xord[256];
+ ASCII_code xord[256];
     /*specifies conversion of input characters*/ 
--uint8_t @!xchr[256];
+-uint8_t xchr[256];
 +text_char xchr[256];
     /*specifies conversion of output characters*/ 
  
@@ -67,8 +67,8 @@
 +@d update_terminal fflush(output.f) /*empty the terminal output buffer*/
  
  @<Glob...@>=
- uint8_t @!buffer[terminal_line_length+1];
- text_file @!term_in; /*the terminal, considered as an input file*/ 
+ uint8_t buffer[terminal_line_length+1];
+ text_file term_in; /*the terminal, considered as an input file*/ 
 +text_file output;
  
  @ A global variable |line_length| records the first buffer position after
@@ -76,26 +76,26 @@
  @^system dependencies@>
  
  @p void input_ln(void) /*inputs a line from the terminal*/ 
--{@+update_terminal;reset(term_in);
-+{@+update_terminal;reset(term_in,"TTY:");
+-{ update_terminal;reset(term_in);
++{ update_terminal;reset(term_in,"TTY:");
  if (eoln(term_in)) read_ln(term_in);
  line_length=0;
  while ((line_length < terminal_line_length)&&!eoln(term_in)) 
 @@ -1648,7 +1670,7 @@
  
  @<Glob...@>=
- int @!cur_loc; /*current byte number in |gf_file|*/ 
--uint8_t @!name_of_file0[file_name_size], *const @!name_of_file = @!name_of_file0-1; /*external file name*/ 
-+unsigned char name_of_file0[file_name_size+1], *const name_of_file = name_of_file0-1;
+ int cur_loc; /*current byte number in |gf_file|*/ 
+-uint8_t name_of_file0[file_name_size], *const name_of_file = name_of_file0-1; /*external file name*/ 
++unsigned char name_of_file0[file_name_size+1], *const name_of_file = name_of_file0-1; /*external file name*/
  
  @ It turns out to be convenient to read four bytes at a time, when we are
  inputting from \.{TFM} files. The input goes into global variables
 @@ -2476,7 +2498,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(str_pool[j]);
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(str_pool[j]);
- if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
+ if (k <= file_name_size) name_length=k; else name_length=file_name_size;
 -for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
-+name_of_file[name_length+1]=0;
++name_of_file[name_length+1]='\0';
  } 
  
  @ Now let's consider the routines by which \.{GFtoDVI} deals with file names
@@ -110,8 +110,8 @@
      } 
 @@ -2682,7 +2704,7 @@
  
- @p void write_dvi(dvi_index @!a, dvi_index @!b)
- {@+int k;
+ @p void write_dvi(dvi_index a, dvi_index b)
+ { int k;
 -for (k=a; k<=b; k++) write(dvi_file, dvi_buf[k]);
 +for (k=a; k<=b; k++) write(dvi_file, "%c", dvi_buf[k]);
  } 
@@ -119,17 +119,17 @@
  @ To put a byte in the buffer without paying the cost of invoking a procedure
 @@ -3209,7 +3231,7 @@
  
- @p void slant_complaint(double @!r)
- {@+if (abs(r-slant_reported) > 0.001) 
--  {@+print_nl("Sorry, I can't make diagonal rules of slant ", r: 10: 5,"!");
-+  {@+print_nl("Sorry, I can't make diagonal rules of slant %10.5f!", r);
+ @p void slant_complaint(double r)
+ { if (abs(r-slant_reported) > 0.001) 
+-  { print_nl("Sorry, I can't make diagonal rules of slant ", r: 10: 5,"!");
++  { print_nl("Sorry, I can't make diagonal rules of slant %10.5f!", r);
  @.Sorry, I can't...@>
    slant_reported=r;
    } 
 @@ -3412,9 +3434,9 @@
  
  @d font_change(X) if (fonts_not_loaded) 
-     {@+X;} 
+     { X;} 
 -  else print_nl("(Tardy font change will be ignored (byte ",
 +  else print_nl("(Tardy font change will be ignored (byte %d)!)",
  @.Tardy font change...@>
@@ -137,15 +137,15 @@
 +    cur_loc)
  
  @<Process a no-op command@>=
- {@+k=interpret_xxx();
+ { k=interpret_xxx();
 @@ -3524,7 +3546,7 @@
  
  @<Store a label@>=
  if ((label_type < '/')||(label_type > '8')) 
--  print_nl("Bad label type precedes byte ", cur_loc: 1,"!")
+-  print_nl("Bad label type precedes byte ", cur_loc: 1,"!") 
 +  print_nl("Bad label type precedes byte %d!", cur_loc)
  @.Bad label type...@>
- else{@+p=get_avail();next[label_tail]=p;label_tail=p;
+ else{ p=get_avail();next[label_tail]=p;label_tail=p;
    lab_typ[p]=label_type;info[p]=cur_string;
 @@ -3544,7 +3566,7 @@
  @<Finish reading the parameters of the |boc|@>;

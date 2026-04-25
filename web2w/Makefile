@@ -1,5 +1,5 @@
 all:
-	tie -c web2w.ch web2w.w tab.ch web2w-gftodvi.ch at.ch >/dev/null
+	tie -c web2w.ch web2w.w tab.ch web2w-gftodvi.ch at-gftodvi.ch >/dev/null
 	ctangle web2w web2w
 	patch -so web-gftodvi.l web.l web-gftodvi.patch
 	flex -o web.lex.c web-gftodvi.l
@@ -7,7 +7,6 @@ all:
 	bison --warnings=none -d -v pascal-gftodvi.y
 	gcc -o web2w web2w.c web.lex.c pascal-gftodvi.tab.c
 	cp gftodvi.web gftodvi-web2w.web
-	@sed -i 's^@/^^g' gftodvi-web2w.web
 	@sed -i "s/\([(,]\)'\(.\)'/\1'\2_'/g" gftodvi-web2w.web
 	@sed -i '/@d five_cases/,+4s/+/,/g' gftodvi-web2w.web
 	@sed -i 's/@<Types /@<Types_/' gftodvi-web2w.web

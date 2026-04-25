@@ -1,0 +1,48 @@
+@x
+@<convert |t| from \WEB/ to \cweb/@>=
+@y
+@<convert |t| from \WEB/ to \cweb/@>=
+case ATSLASH:
+  t=t->next;
+  break;
+@z
+
+@x
+case ATPLUS:
+  t=t->next;
+  if (!following_directive(t))
+    wputs("@@+");
+@y
+case ATPLUS:
+  t=t->next;
+  if (!following_directive(t)) {
+    if (t->previous->previous->tag == EQEQ) wputs(""); else wputs(" ");
+  }
+@z
+
+@x
+  if (!following_directive(t)) wputs("@@+");
+@y
+  if (!following_directive(t)) wputs(" ");
+@z
+
+@x
+  if (t->previous->tag==ATEX) wputs("@@!");
+@y
+@z
+
+@x
+     wputs("enum {@@+"), wid(t), wput('=');
+     t=wprint_to(t->link->next,t->link->link);
+     wputs("@@+};");
+@y
+     wputs("enum { "), wid(t), wput('=');
+     t=wprint_to(t->link->next,t->link->link);
+     wputs(" };");
+@z
+
+@x
+        winsert_after(t,ATSEMICOLON,"@@;");
+@y
+        winsert_after(t,ATSEMICOLON," ");
+@z
